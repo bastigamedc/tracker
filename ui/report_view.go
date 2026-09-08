@@ -69,8 +69,6 @@ func (m *Model) reportView() string {
 		))
 		b.WriteString("\n\n")
 
-		workdays := len(m.reportEntries)
-		_ = workdays
 		b.WriteString(dimStyle.Render(fmt.Sprintf("Tage mit Einträgen: %d", len(uniqueDates(m.reportEntries)))))
 		b.WriteString("\n")
 		b.WriteString(helpStyle.Render("[←/→] Monat wechseln   [esc] Menü"))

@@ -26,7 +26,7 @@ func (m *Model) companiesView() string {
 		b.WriteString(labelStyle("Vorhandene Firmen:"))
 		for i, c := range m.companies {
 			if i == m.companySel {
-				b.WriteString(selectedMenuItemStyle.Render("▸ " + c))
+				b.WriteString(selectedRowStyle.Render("▸ " + c))
 			} else {
 				b.WriteString(menuItemStyle.Render("  " + c))
 			}

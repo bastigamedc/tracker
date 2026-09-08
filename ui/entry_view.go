@@ -23,7 +23,7 @@ const (
 )
 
 func labelStyle(s string) string {
-	return lipgloss.NewStyle().Foreground(lipgloss.Color("#8a8f98")).Bold(true).MarginTop(1).MarginBottom(1).Render(s)
+	return lipgloss.NewStyle().Foreground(lipgloss.Color("#8a8f98")).Bold(true).MarginTop(1).Render(s) + "\n"
 }
 
 func (m *Model) entryView() string {
@@ -50,14 +50,14 @@ func (m *Model) entryView() string {
 			companies, _ := m.store.LoadCompanies()
 			for i, c := range companies {
 				if i == f.companyIdx {
-					b.WriteString(selectedMenuItemStyle.Render("▸ " + c))
+					b.WriteString(selectedRowStyle.Render("▸ " + c))
 				} else {
 					b.WriteString(menuItemStyle.Render("  " + c))
 				}
 				b.WriteString("\n")
 			}
 			if f.companyIdx == len(companies) {
-				b.WriteString(selectedMenuItemStyle.Render("▸ ✚ Neue Firma eingeben"))
+				b.WriteString(selectedRowStyle.Render("▸ ✚ Neue Firma eingeben"))
 			} else {
 				b.WriteString(menuItemStyle.Render("  ✚ Neue Firma eingeben"))
 			}
@@ -87,12 +87,15 @@ func (m *Model) entryView() string {
 		b.WriteString(helpStyle.Render("[Enter] Weiter   [esc] Zurück"))
 
 	case entryStepConfirm:
-		b.WriteString(successStyle.Render("Eintrag speichern?"))
+		b.WriteString(accentStyle.Render("Eintrag speichern?"))
 		b.WriteString("\n\n")
 		b.WriteString(confirmRow("Firma", m.entryCompanyName()))
+		b.WriteString("\n")
 		b.WriteString(confirmRow("Datum", m.entryDateParsed().Format("02.01.2006")))
+		b.WriteString("\n")
 		b.WriteString(confirmRow("Dauer", m.entryDurationDisplay()))
 		if n := strings.TrimSpace(f.noteInput.Value()); n != "" {
+			b.WriteString("\n")
 			b.WriteString(confirmRow("Notiz", n))
 		}
 		if f.errorText != "" {
@@ -113,10 +116,8 @@ func (m *Model) entryView() string {
 }
 
 func confirmRow(key string, value string) string {
-	return lipgloss.NewStyle().MarginBottom(1).Render(
-		lipgloss.NewStyle().Width(14).Foreground(lipgloss.Color("#8a8f98")).Render(key) +
-			accentStyle.Render(value),
-	)
+	return lipgloss.NewStyle().Width(14).Foreground(lipgloss.Color("#8a8f98")).Render(key) +
+		accentStyle.Render(value)
 }
 
 func (m *Model) entryCompanyName() string {

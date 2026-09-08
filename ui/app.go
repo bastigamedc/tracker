@@ -200,9 +200,7 @@ func (m *Model) loadReport() {
 
 func (m *Model) loadReportMonth(month time.Month) {
 	entries, _ := m.store.EntriesForYear(m.reportYear)
-	prefix := monthName(month)
 	var filtered []store.Entry
-	_ = prefix
 	for _, e := range entries {
 		t, err := time.Parse("2006-01-02", e.Date)
 		if err != nil {

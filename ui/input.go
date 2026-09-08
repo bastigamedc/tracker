@@ -3,7 +3,6 @@ package ui
 import (
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
 )
 
 type input struct {
@@ -47,5 +46,5 @@ func (i *input) Update(msg tea.Msg) tea.Cmd {
 }
 
 func (i *input) View() string {
-	return lipgloss.NewStyle().MarginBottom(1).Render(i.model.View())
+	return i.model.View()
 }

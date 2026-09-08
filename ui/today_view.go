@@ -44,7 +44,7 @@ func (m *Model) todayView() string {
 				dimStyle.Render(e.Note),
 			)
 			if i == m.todaySelected {
-				b.WriteString(selectedMenuItemStyle.Render("▸ " + line))
+				b.WriteString(selectedRowStyle.Render("▸ " + line))
 			} else {
 				b.WriteString(menuItemStyle.Render("  " + line))
 			}
